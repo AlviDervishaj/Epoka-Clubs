@@ -1,57 +1,48 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
 
-export default function Home() {
+// React & Next
+import { useRef, useState } from "react";
+import Link from "next/link";
+
+// Helpers
+import { signInWithGoogle, ReturnType } from "./utils";
+
+export default function Auth() {
+  const [error, setError] = useState<string>();
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  const signInWrapper = async (): Promise<void> => {
+    const response: ReturnType = await signInWithGoogle();
+    // Error handling
+    if (response.error && (response.code === 400 || response.code === 500) && (linkRef.current)) {
+      setError("Please try again later");
+      if (response.error.code === "auth/popup-closed-by-user") return;
+      console.log({ error: response.error });
+    }
+    return linkRef.current?.click();
+  }
+
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
-        </h1>
+    <div className="w-full h-screen backdrop-blur-sm">
+      <div className="homeBackground" />
+      <main className="w-full h-full backdrop-blur-[6px]">
+        <header className="h-[40%] grid place-items-center">
+          <h1 className="text-3xl md:text-5xl bg-clip-text from-blue-500 to-green-500 font-bold bg-gradient-to-br lg:text-6xl text-transparent">Epoka Clubs</h1>
+        </header>
+        <section className="h-[40%] flex flex-row items-center content-center justify-center">
+          <button onClick={() => signInWrapper()}
+            className="w-1/3 bg-sky-500 text-slate-800 px-1 py-3 rounded-md shadow shadow-slate-800 tracking-wider text-md md:text-lg">Sign In</button>
+        </section>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
+        <div className="h-1/5 grid place-items-center w-full py-3">
 
-        <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js 13</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Explore the Next.js 13 playground.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
+          {error && <h2 className="text-red-500 font-bold text-2xl">{error}</h2>}
         </div>
+        <Link href="/auth" className="hidden" ref={linkRef}>Proceed</Link>
+        {/* <footer className="h-1/5 grid place-items-center w-full py-3 bg-slate-800">
+          <h2 className="text-lg text-slate-200">Footer section here.</h2>
+        </footer> */}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
-  )
+  );
 }

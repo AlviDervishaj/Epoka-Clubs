@@ -1,26 +1,31 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
+@layer base {  
+   * {
+    @apply transition-all duration-300 ease-in-out; 
   }
 }
+
+@layer components {
+  .navigation-toggle {
+    @apply border-none cursor-pointer block relative mr-2;
+    @apply w-fit h-fit;
+    @apply self-end;
+  }
+ .navigation-link {
+    @apply w-full h-fit px-3 py-2;
+    @apply text-lg flex flex-row items-center content-center gap-4;
+    @apply border-b border-b-slate-200;
+    @apply last:border-none;
+    @apply md:text-lg;
+  } 
+  .homeBackground {
+    @apply absolute top-0 left-0 -z-50 opacity-80;
+    @apply bg-no-repeat bg-center bg-cover w-screen h-screen;
+    background-image: url('../public/static/images/epoka_university.jpg');
+  }
+}
+
