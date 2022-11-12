@@ -10,7 +10,7 @@ import { Auth, Unsubscribe, getAuth, onAuthStateChanged, User } from "firebase/a
 // Helpers
 import { init_firebase } from "../utils";
 
-const Home: NextPage = () => {
+export default function Auth() {
   const [user, setUser] = useState<User>();
   init_firebase();
 
@@ -35,7 +35,4 @@ const Home: NextPage = () => {
 
   );
 }
-
-export default Home;
-
 

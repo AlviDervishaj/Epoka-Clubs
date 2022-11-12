@@ -7,7 +7,7 @@ import Link from "next/link";
 // Helpers
 import { signInWithGoogle, ReturnType } from "./utils";
 
-export default function Auth() {
+export default function Home() {
   const [error, setError] = useState<string>();
   const linkRef = useRef<HTMLAnchorElement>(null);
 
