@@ -1,6 +1,5 @@
 'use client';
 // React & Next
-import { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -10,7 +9,7 @@ import { Auth, Unsubscribe, getAuth, onAuthStateChanged, User } from "firebase/a
 // Helpers
 import { init_firebase } from "../utils";
 
-export default function Auth() {
+export default function Authentication() {
   const [user, setUser] = useState<User>();
   init_firebase();
 
