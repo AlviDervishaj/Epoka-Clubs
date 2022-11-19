@@ -3,6 +3,7 @@
 // React & Next
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Helpers
 import { signInWithGoogle, ReturnType } from "./utils";
@@ -23,25 +24,23 @@ export default function Home() {
   }
 
   return (
-    <div className="w-full h-screen backdrop-blur-sm">
-      <div className="homeBackground" />
-      <main className="w-full h-full backdrop-blur-[6px]">
-        <header className="h-[40%] grid place-items-center">
-          <h1 className="text-3xl md:text-5xl bg-clip-text from-blue-500 to-green-500 font-bold bg-gradient-to-br lg:text-6xl text-transparent">Epoka Clubs</h1>
+    <div className="w-full h-full bg-slate-100">
+      <Image src={"/static/images/EpokaLogoTransparent.png"} priority alt={"Epoka"} width={144} height={96} className={"p-2"} />
+      <main className="w-full h-full">
+        <header className="h-full grid place-items-center">
+          <h1 className="text-5xl  md:text-5xl bg-clip-text from-blue-900 to-blue-600 font-bold bg-gradient-to-br lg:text-6xl text-transparent">Epoka Clubs</h1>
         </header>
-        <section className="h-[40%] flex flex-row items-center content-center justify-center">
+        <section className="h-full flex flex-row items-center content-center justify-center">
           <button onClick={() => signInWrapper()}
-            className="w-1/3 bg-sky-500 text-slate-800 px-1 py-3 rounded-md shadow shadow-slate-800 tracking-wider text-md md:text-lg">Sign In</button>
+            className="w-1/3 bg-sky-500 text-slate-800 px-1 py-3 rounded-md shadow shadow-slate-800">
+            <p className={"tracking-wider text-lg"}>Sign In</p>
+          </button>
         </section>
 
-        <div className="h-1/5 grid place-items-center w-full py-3">
-
+        <div className="h-full grid place-items-center w-full py-3">
           {error && <h2 className="text-red-500 font-bold text-2xl">{error}</h2>}
         </div>
         <Link href="/auth" className="hidden" ref={linkRef}>Proceed</Link>
-        {/* <footer className="h-1/5 grid place-items-center w-full py-3 bg-slate-800">
-          <h2 className="text-lg text-slate-200">Footer section here.</h2>
-        </footer> */}
       </main>
     </div>
   );

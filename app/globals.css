@@ -25,7 +25,16 @@
   .homeBackground {
     @apply absolute top-0 left-0 -z-50 opacity-80;
     @apply bg-no-repeat bg-center bg-cover w-screen h-screen;
+  }
+  .epokaBackground {
     background-image: url('../public/static/images/epoka_university.jpg');
+  }
+
+  .footer-link {
+    @apply underline-offset-4;
+    @apply text-footer-light;
+    @apply text-xl lg:text-2xl;
+    @apply hover:underline;
   }
 }
 

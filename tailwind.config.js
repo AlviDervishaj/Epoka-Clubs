@@ -8,9 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'navigation': {
-          'dark': '#023047',
+        'home': {
+          'dark': '#014185',
           'light': '#219ebc',
+        },
+        'footer': {
+          'light': '#8ecae6',
         }
       }
     },
