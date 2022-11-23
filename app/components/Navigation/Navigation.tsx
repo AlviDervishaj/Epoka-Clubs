@@ -1,40 +1,46 @@
-'use client';
 // React & Next
-import Link from "next/link";
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useRef } from "react";
 
-// Utilites
-import { logOut } from "../../utils";
+// Framer Motion
+import { motion, useCycle } from "framer-motion";
 
-// Custom Icons
-import { Profile, AcademicCap, Home, LogOut, ChevronDown } from "../Icons";
+// Helpers
+import { useDimensions } from "../hooks";
+import { variants, sidebar } from "../../framerMotion"
+
+// Components
+import { NavigationLink } from "./NavigationLink";
+import { NavigationLogOutLink } from "./NavigationLogOutLink";
+import { ToggleNavigation } from "./ToggleNavigation";
 
 export const Navigation: FC = (): ReactElement => {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [isOpened, setIsOpened] = useCycle<boolean>(false, true);
+
+  const navRef = useRef<HTMLUListElement>(null);
+  const { height } = useDimensions(navRef);
 
   return (
-    <nav className={'h-fit bg-navigation-light flex gap-2 flex-col items-start justify-center'}>
-      <button className="navigation-toggle" onClick={() => setIsOpened(!isOpened)}>
-        <ChevronDown strokeWidth={1} className={`w-10 h-10 ${isOpened ? '-rotate-180' : '-rotate-0'}`} fill={"transparent"} />
-      </button>
-      <ul className={`${isOpened ? 'block opacity-100' : 'hidden opacity-0'} flex flex-col gap-2 justify-start align-items-center w-full`}>
-        <Link href={"/"} className={"navigation-link"}>
-          <p className="navigation-text">Home</p>
-          <Home fill={"#111"} strokeWidth={1} />
-        </Link>
-        <Link href={"/"} className={"navigation-link"}>
-          <p className="navigation-text">Clubs</p>
-          <AcademicCap fill={"transparent"} strokeWidth={2} />
-        </Link>
-        <Link href={"/"} className={"navigation-link"}>
-          <p className="navigation-text">My Profile</p>
-          <Profile fill={"#111"} strokeWidth={1} />
-        </Link>
-        <button onClick={() => logOut()} className={"navigation-link"}>
-          <p className="navigation-text">Log Out</p>
-          <LogOut fill={"#111"} strokeWidth={1} />
-        </button>
-      </ul>
-    </nav>
+    <motion.div className="relative z-50">
+      <motion.nav
+        className="w-full h-full z-50"
+        initial={false}
+        animate={isOpened ? "open" : "closed"}>
+        <motion.div className="navigationBackground" variants={sidebar} />
+        <ToggleNavigation toggle={setIsOpened} />
+        <motion.div
+          custom={height}
+          className={`${isOpened ? 'pointer-events-auto' : 'pointer-events-none'} p-2 pt-10 absolute w-full md:w-1/3 flex gap-2 flex-col items-end justify-center`}>
+          <motion.ul
+            ref={navRef}
+            variants={variants}
+            className={"flex flex-col gap-2 justify-start align-items-center w-full"} >
+            <NavigationLink href="/" text={"Home"} />
+            <NavigationLink href="/" text={"Clubs"} />
+            <NavigationLink href="/" text={"Profile"} />
+            <NavigationLogOutLink />
+          </motion.ul>
+        </motion.div>
+      </motion.nav>
+    </motion.div>
   )
 }

@@ -9,8 +9,8 @@ module.exports = {
     extend: {
       colors: {
         'home': {
-          'dark': '#014185',
-          'light': '#219ebc',
+          'dark': '#2b2d42',
+          'light': '#edf2f4',
         },
         'footer': {
           'light': '#8ecae6',

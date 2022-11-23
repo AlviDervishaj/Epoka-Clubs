@@ -2,14 +2,14 @@
 // import global css to load Tailwind
 import './globals.css'
 
-// Components
-import { Footer } from "./components";
-
 // Helpers
 import { LayoutProps } from '../helpers/LayoutHelpers';
 
 // Next Fonts
 import { Inter } from "@next/font/google";
+
+// Framer Motion
+import { motion } from "framer-motion";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,9 +21,10 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <head />
-      <body className={`w-full h-full ${inter.className}`}>
-        {children}
-        <Footer />
+      <body className={`w-full h-full ${inter.className} bg-home-light`}>
+        <motion.main>
+          {children}
+        </motion.main>
       </body>
     </html>
   )
