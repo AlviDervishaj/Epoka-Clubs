@@ -1,9 +1,19 @@
+import { InsertOneResult, WithId, Document } from 'mongodb';
+
 export type AvailableDatabases = "Student" | "Club" | "Staff";
 
 export type BulkDocuments = Array<StudentData | ClubData | StaffData | RequestData>;
 
 export type FilterQuery = {
   [key: string]: string;
+}
+
+export type APIReturnType = {
+  info: string,
+  getUser?: WithId<Document> | null,
+  insertedResult?: InsertOneResult<Document>,
+  error?: string,
+  code: 200 | 400 | 401 | 500,
 }
 
 export type StudentData = {

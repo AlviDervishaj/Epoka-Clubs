@@ -29,12 +29,12 @@ export const Navigation: FC = (): ReactElement => {
         <ToggleNavigation toggle={setIsOpened} />
         <motion.div
           custom={height}
-          className={`${isOpened ? 'pointer-events-auto' : 'pointer-events-none'} p-2 pt-10 absolute w-full md:w-1/3 flex gap-2 flex-col items-end justify-center`}>
+          className={`${isOpened ? 'pointer-events-auto' : 'pointer-events-none'} px-4 pt-20 absolute w-full md:w-1/3 flex gap-2 flex-col items-end justify-center`}>
           <motion.ul
             ref={navRef}
             variants={variants}
             className={"flex flex-col gap-2 justify-start align-items-center w-full"} >
-            <NavigationLink href="/" text={"Home"} />
+            <NavigationLink href="/auth" text={"Home"} />
             <NavigationLink href="/" text={"Clubs"} />
             <NavigationLink href="/" text={"Profile"} />
             <NavigationLogOutLink />

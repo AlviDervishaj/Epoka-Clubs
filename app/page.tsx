@@ -1,5 +1,6 @@
 "use client";
 // React & Next
+import { MouseEvent, TouchEvent, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,12 +11,18 @@ import axios, { AxiosResponse } from "axios";
 
 // Framer Motion
 import { motion, Variants } from "framer-motion";
-import { MouseEvent, TouchEvent, useState } from "react";
+
+// Helpers
+import { APIReturnType } from "../helpers/Types";
+
+// Components
+import { Loading } from "./components";
 
 export default function Home() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const emailRegex = /([a-z]{4,}[1-9]{2}@epoka\.edu\.al)/;
   const router: AppRouterInstance = useRouter();
@@ -23,21 +30,38 @@ export default function Home() {
   const handleSignIn = async (event: TouchEvent | MouseEvent) => {
     event?.preventDefault();
     if (!emailRegex.test(email)) return setError("Not a valid Epoka email.");
+    setIsLoading(true);
     // make request to backend with axios
-    const response: AxiosResponse = await axios.post("/api/auth", {
+    const authenticateResponse: AxiosResponse<APIReturnType> = await axios.post("/api/auth", {
       email,
       password,
     });
-    console.log({ response });
-    if (response.data.info.acknowledged && response.data.info.insertedId) {
+
+    const { insertedResult, getUser, info, error } = authenticateResponse.data;
+
+
+    if (error) {
+      setIsLoading(false);
+      return setError(info);
+    }
+
+    // check if student does not have an account
+    if (insertedResult) {
+      if (insertedResult.acknowledged && insertedResult.insertedId) {
+        setIsLoading(false);
+        // save to localstorage
+        localStorage.setItem("token", `${insertedResult.insertedId}`);
+        return router.push("/auth");
+      }
+    }
+    // student already has an account before
+    else if (getUser) {
+      setIsLoading(false);
       // save to localstorage
-      localStorage.setItem("token", response.data.info.insertedId);
+      localStorage.setItem("token", `${getUser._id}`);
       return router.push("/auth");
     }
-    else {
-      setError("Please try again.");
-    }
-  };
+  }
 
   // animation options
   const framerVariants: Variants = { shown: { opacity: 2 } };
@@ -86,6 +110,7 @@ export default function Home() {
           >
             <p className={"text-lg"}>Log In</p>
           </motion.button>
+          {isLoading && <Loading />}
           <motion.span>
             {error && <p className="text-lg text-red-500">{error}</p>}
           </motion.span>

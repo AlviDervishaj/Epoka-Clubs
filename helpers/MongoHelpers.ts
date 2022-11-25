@@ -1,5 +1,5 @@
 // Mongo
-import { MongoClient, Db, Collection } from "mongodb";
+import { MongoClient, Db, Collection, WithId, Document, FindCursor } from "mongodb";
 import { ClubData, StaffData, RequestData, StudentData, AvailableDatabases, BulkDocuments, FilterQuery } from "./Types";
 
 export class MongoWrapper {
@@ -62,14 +62,14 @@ export class MongoActions extends MongoWrapper {
   }
 
   // find one document
-  async findOneDocument(filter: any) {
-    const result = await this.getCollection.findOne(filter);
+  async findOneDocument(filter: FilterQuery | {}) {
+    const result: WithId<Document> | null = await this.getCollection.findOne(filter);
     return result;
   }
 
   // find many documents
   async findManyDocuments(filter: FilterQuery) {
-    const result = await this.getCollection.find(filter).toArray();
+    const result: Array<WithId<Document>> = await this.getCollection.find(filter).toArray();
     return result;
   }
 }

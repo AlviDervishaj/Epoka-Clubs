@@ -7,10 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        '7.5': '1.875rem',
+      },
       colors: {
         'home': {
           'dark': '#00458C',
           'light': '#edf2f4',
+        },
+        'router': {
+          'active': '#1d3557',
         },
         'header': {
           'dark': '#2b2d42',

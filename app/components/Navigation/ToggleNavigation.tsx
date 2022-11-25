@@ -20,7 +20,7 @@ interface ToggleNavigationInterface {
 
 export const ToggleNavigation: FC<ToggleNavigationInterface> = ({ toggle }) => (
   <button
-    className={"cursor-pointer z-50 grid place-items-center w-fit h-full absolute top-2 left-2"}
+    className={"cursor-pointer z-50 grid place-items-center w-fit h-full absolute top-7.5 md:top-7 left-7.5 md:left-7"}
     onClick={() => { toggle() }}>
     <svg className={"w-5 h-5 md:w-6 md:h-6"} viewBox="0 0 20 20">
       <Path

@@ -42,7 +42,7 @@ export const sidebar: Variants = {
     },
   }),
   closed: {
-    clipPath: "circle(1.3rem at 20px 20px)",
+    clipPath: "circle(1.3rem at 40px 40px)",
     transition: {
       delay: 0.35,
       stiffness: 100,
