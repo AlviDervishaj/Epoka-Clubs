@@ -6,21 +6,30 @@ export default function Head() {
       <link rel="icon" href="/favicon.ico" />
       {/* Primary Tags */}
       <title>Epoka Clubs</title>
-      <meta name="title" content="Meta Tags — Preview, Edit and Generate" />
-      <meta name="description" content="Manage Epoka Clubs and participate in events to earn certificates." />
+      <meta name="title" content="Epoka Clubs" />
+      <meta
+        name="description"
+        content="Manage Epoka Clubs and participate in events to earn certificates."
+      />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content="http://localhost:3000/" />
       <meta property="og:title" content="Epoka Clubs" />
-      <meta property="og:description" content="Manage Epoka Clubs and participate in events to earn certificates." />
+      <meta
+        property="og:description"
+        content="Manage Epoka Clubs and participate in events to earn certificates."
+      />
       <meta property="og:image" content="http://localhost:3000/api/og" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content="http://localhost:3000/" />
       <meta property="twitter:title" content="Epoka Clubs" />
-      <meta property="twitter:description" content="Manage Epoka Clubs and participate in evnets to earn certificates." />
+      <meta
+        property="twitter:description"
+        content="Manage Epoka Clubs and participate in evnets to earn certificates."
+      />
       <meta property="twitter:image" content="http://localhost:3000/api/og" />
     </>
   );

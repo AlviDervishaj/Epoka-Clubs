@@ -1,0 +1,77 @@
+// Mongo
+import { MongoClient, Db, Collection } from "mongodb";
+import { ClubData, StaffData, RequestData, StudentData, AvailableDatabases, BulkDocuments, FilterQuery } from "./Types";
+
+export class MongoWrapper {
+  protected client: MongoClient;
+  protected database: Db;
+  protected collection: Collection;
+
+  // construstor
+  constructor(databaseName: AvailableDatabases = "Student") {
+    this.client = new MongoClient(process.env.NEXT_PUBLIC_MONGO_CONNECTION as string);
+    this.database = this.getClient.db(databaseName);
+    this.collection = this.getDatabase.collection(databaseName);
+  }
+
+  // getters 
+  get getClient(): MongoClient {
+    return this.client;
+  }
+
+  get getDatabase(): Db {
+    return this.database;
+  }
+
+  get getCollection(): Collection {
+    return this.collection;
+  }
+
+  // setters 
+
+  set setClient(newClient: MongoClient) {
+    this.client = newClient;
+  }
+
+  set setDatabase(newDatabase: Db) {
+    this.database = newDatabase;
+  }
+
+  set setCollection(newCollection: Collection) {
+    this.collection = newCollection;
+  }
+}
+
+
+export class MongoActions extends MongoWrapper {
+  constructor(databaseName: AvailableDatabases = "Student") {
+    super(databaseName);
+  }
+
+  // methods
+
+  async insertOneDocument(document: StudentData | ClubData | StaffData | RequestData) {
+    const result = await this.getCollection.insertOne(document);
+    return result;
+  }
+
+  // insert many documents
+  async insertManyDocuments(documents: BulkDocuments) {
+    const result = await this.getCollection.insertMany(documents);
+    return result;
+  }
+
+  // find one document
+  async findOneDocument(filter: any) {
+    const result = await this.getCollection.findOne(filter);
+    return result;
+  }
+
+  // find many documents
+  async findManyDocuments(filter: FilterQuery) {
+    const result = await this.getCollection.find(filter).toArray();
+    return result;
+  }
+}
+
+

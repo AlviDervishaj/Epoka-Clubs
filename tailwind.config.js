@@ -9,8 +9,16 @@ module.exports = {
     extend: {
       colors: {
         'home': {
-          'dark': '#2b2d42',
+          'dark': '#00458C',
           'light': '#edf2f4',
+        },
+        'header': {
+          'dark': '#2b2d42',
+        },
+        'buttons': {
+          'light': {
+            'blue': '#003049',
+          },
         },
         'footer': {
           'light': '#8ecae6',

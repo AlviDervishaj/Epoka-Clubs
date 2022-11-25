@@ -1,9 +1,9 @@
-'use client';
+"use client";
 // import global css to load Tailwind
-import './globals.css'
+import "./globals.css";
 
 // Helpers
-import { LayoutProps } from '../helpers/LayoutHelpers';
+import { LayoutProps } from "../helpers/LayoutHelpers";
 
 // Next Fonts
 import { Inter } from "@next/font/google";
@@ -12,9 +12,8 @@ import { Inter } from "@next/font/google";
 import { motion } from "framer-motion";
 
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
+  subsets: ["latin"],
+});
 
 // Layout default export can have any name.
 export default function RootLayout({ children }: LayoutProps) {
@@ -22,10 +21,10 @@ export default function RootLayout({ children }: LayoutProps) {
     <html lang="en">
       <head />
       <body className={`w-full h-full ${inter.className} bg-home-light`}>
-        <motion.main>
+        <motion.main className="w-full h-full min-h-screen">
           {children}
         </motion.main>
       </body>
     </html>
-  )
+  );
 }

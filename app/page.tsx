@@ -1,57 +1,105 @@
-'use client';
-
+"use client";
 // React & Next
-import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+
+// Axios
+import axios, { AxiosResponse } from "axios";
 
 // Framer Motion
 import { motion, Variants } from "framer-motion";
-
-// Helpers
-import { signInWithGoogle, ReturnType } from "./utils";
+import { MouseEvent, TouchEvent, useState } from "react";
 
 export default function Home() {
-  const [error, setError] = useState<string>();
-  const linkRef = useRef<HTMLAnchorElement>(null);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
+  const emailRegex = /([a-z]{4,}[1-9]{2}@epoka\.edu\.al)/;
+  const router: AppRouterInstance = useRouter();
+
+  const handleSignIn = async (event: TouchEvent | MouseEvent) => {
+    event?.preventDefault();
+    if (!emailRegex.test(email)) return setError("Not a valid Epoka email.");
+    // make request to backend with axios
+    const response: AxiosResponse = await axios.post("/api/auth", {
+      email,
+      password,
+    });
+    console.log({ response });
+    if (response.data.info.acknowledged && response.data.info.insertedId) {
+      // save to localstorage
+      localStorage.setItem("token", response.data.info.insertedId);
+      return router.push("/auth");
+    }
+    else {
+      setError("Please try again.");
+    }
+  };
 
   // animation options
-  const framerVariants: Variants = { shown: { opacity: 1 } };
-
-  const signInWrapper = async (): Promise<void> => {
-    const response: ReturnType = await signInWithGoogle();
-    // Error handling
-    if (response.error && (response.code === 400 || response.code === 500) && (linkRef.current)) {
-      setError("Please try again later");
-      if (response.error.code === "auth/popup-closed-by-user") return;
-      console.log({ error: response.error });
-    }
-    return linkRef.current?.click();
-  }
+  const framerVariants: Variants = { shown: { opacity: 2 } };
 
   return (
-    <motion.div className="w-full h-full grid grid-cols-1 grid-rows-4" animate={"shown"} variants={framerVariants}>
-      <Image src={"/static/images/EpokaLogoTransparent.png"} priority alt={"Epoka"} width={144} height={96} className={"p-2"} />
-      <motion.main className="w-full h-full" >
-        <motion.header className="h-full grid place-items-center">
-          <motion.h1 className="text-5xl  md:text-5xl bg-clip-text from-blue-900 to-blue-600 font-bold bg-gradient-to-br lg:text-6xl text-transparent">
-            Epoka Clubs
-          </motion.h1>
-        </motion.header>
-        <motion.section className="h-full flex flex-row items-center content-center justify-center">
-          <motion.button onClick={() => signInWrapper()}
-            className="w-1/3 bg-sky-500 text-slate-800 px-1 py-3 rounded-md shadow shadow-slate-800">
-            <motion.p className={"tracking-wider text-lg"}>Sign In</motion.p>
+    <motion.div
+      className="w-full min-h-screen bg-home-dark "
+      animate={"shown"}
+      variants={framerVariants}>
+      <Image
+        src={"/static/images/EpokaLogo.jpg"}
+        priority
+        alt={"Epoka"}
+        width={200}
+        height={110}
+        className={"w-auto h-auto"}
+      />
+      <motion.main className="w-full h-full pt-20 grid place-items-center">
+        <motion.form className="w-fit h-full grid place-items-center content-evenly \
+          gap-8 md:gap-10 bg-white/80 p-5 rounded-md shadow-lg shadow-black/50">
+          <motion.header className="h-full grid place-items-center">
+            <motion.h1 className="text-5xl  md:text-5xl font-bold lg:text-6xl text-header-dark">
+              Epoka Clubs
+            </motion.h1>
+          </motion.header>
+          <motion.input
+            type={"email"}
+            value={email}
+            onChange={(event: any) => setEmail(event.target.value)}
+            placeholder="Epoka Email"
+            className="w-80 h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          />
+          <motion.input
+            type={"password"}
+            value={password}
+            onChange={(event: any) => setPassword(event.target.value)}
+            placeholder="********"
+            className="w-80 h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          />
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: [null, 0.9] }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.001 }}
+            onClick={(event: TouchEvent | MouseEvent) => handleSignIn(event)}
+            className={"w-80 h-12 px-4 text-lg text-white bg-blue-500 rounded-lg hover:bg-home-dark focus:outline-none focus:bg-home-dark"}
+          >
+            <p className={"text-lg"}>Log In</p>
           </motion.button>
-        </motion.section>
-        <motion.div className="h-full grid place-items-center w-full py-3">
-          {error && <h2 className="text-red-500 font-bold text-2xl">{error}</h2>}
-        </motion.div>
-        <Link href="/auth" className="hidden" ref={linkRef}>Proceed</Link>
+          <motion.span>
+            {error && <p className="text-lg text-red-500">{error}</p>}
+          </motion.span>
+        </motion.form>
+        <Link href="/auth" className="hidden">
+          Proceed
+        </Link>
       </motion.main>
-      <footer className={"bg-home-dark absolute bottom-0 left-0 w-full h-fit py-4 px-2"}>
-        <h2 className={"text-xl text-slate-50"}>© 2013 - present Epoka University</h2>
+      <footer
+        className={"bg-home-light absolute bottom-0 left-0 w-full h-fit py-4 px-2 text-center"}
+      >
+        <h2 className={"text-base text-slate-900"}>
+          © 2013 - present Epoka University
+        </h2>
       </footer>
     </motion.div>
   );

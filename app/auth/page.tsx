@@ -1,8 +1,8 @@
 export default function Authentication() {
   return (
-    <>
-      <h2 className="text-red-500">Hello World</h2>
-    </>
+    <main className={"pt-20"}>
+      <h2>Auth user </h2>
+    </main>
 
   );
 }
