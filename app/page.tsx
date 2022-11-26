@@ -68,22 +68,24 @@ export default function Home() {
 
   return (
     <motion.div
-      className="w-full min-h-screen bg-home-dark "
+      className="w-full h-screen bg-home-dark "
       animate={"shown"}
       variants={framerVariants}>
-      <Image
-        src={"/static/images/EpokaLogo.jpg"}
-        priority
-        alt={"Epoka"}
-        width={200}
-        height={110}
-        className={"w-auto h-auto"}
-      />
-      <motion.main className="w-full h-full pt-20 grid place-items-center">
-        <motion.form className="w-fit h-full grid place-items-center content-evenly \
+      <section className={"relative w-full h-auto"}>
+        <Image
+          src={"/static/images/EpokaLogo.jpg"}
+          priority
+          alt={"Epoka"}
+          width={200}
+          height={110}
+          className={"w-auto md:w-auto h-auto mx-auto"}
+        />
+      </section>
+      <motion.main className="w-full h-fit pt-20 grid place-items-center">
+        <motion.form className="w-fit h-fit grid place-items-center content-evenly \
           gap-8 md:gap-10 bg-white/80 p-5 rounded-md shadow-lg shadow-black/50">
           <motion.header className="h-full grid place-items-center">
-            <motion.h1 className="text-5xl  md:text-5xl font-bold lg:text-6xl text-header-dark">
+            <motion.h1 className="text-3xl  md:text-5xl font-bold lg:text-6xl text-header-dark">
               Epoka Clubs
             </motion.h1>
           </motion.header>
@@ -92,21 +94,21 @@ export default function Home() {
             value={email}
             onChange={(event: any) => setEmail(event.target.value)}
             placeholder="Epoka Email"
-            className="w-80 h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            className="w-60 md:w-80 h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
           <motion.input
             type={"password"}
             value={password}
             onChange={(event: any) => setPassword(event.target.value)}
             placeholder="********"
-            className="w-80 h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            className="w-60 md:w-80 h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: [null, 0.9] }}
             transition={{ type: "tween", ease: "easeInOut", duration: 0.001 }}
             onClick={(event: TouchEvent | MouseEvent) => handleSignIn(event)}
-            className={"w-80 h-12 px-4 text-lg text-white bg-blue-500 rounded-lg hover:bg-home-dark focus:outline-none focus:bg-home-dark"}
+            className={"w-60 md:w-80 h-12 px-4 text-lg text-white bg-blue-500 rounded-lg hover:bg-home-dark focus:outline-none focus:bg-home-dark"}
           >
             <p className={"text-lg"}>Log In</p>
           </motion.button>
@@ -120,7 +122,7 @@ export default function Home() {
         </Link>
       </motion.main>
       <footer
-        className={"bg-home-light absolute bottom-0 left-0 w-full h-fit py-4 px-2 text-center"}
+        className={"bg-home-light absolute bottom-0 left-0 w-full py-4 px-2 text-center"}
       >
         <h2 className={"text-base text-slate-900"}>
           © 2013 - present Epoka University
