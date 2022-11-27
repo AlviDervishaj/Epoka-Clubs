@@ -16,7 +16,7 @@ import { motion, Variants } from "framer-motion";
 import { APIReturnType } from "../helpers/Types";
 
 // Components
-import { Loading } from "./components";
+import { LoadingSpinner } from "./components";
 
 export default function Home() {
   const [email, setEmail] = useState<string>("");
@@ -112,7 +112,7 @@ export default function Home() {
           >
             <p className={"text-lg"}>Log In</p>
           </motion.button>
-          {isLoading && <Loading />}
+          {isLoading && <LoadingSpinner />}
           <motion.span>
             {error && <p className="text-lg text-red-500">{error}</p>}
           </motion.span>
