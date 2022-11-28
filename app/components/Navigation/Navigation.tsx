@@ -12,6 +12,7 @@ import { variants, sidebar } from "../../framerMotion"
 import { NavigationLink } from "./NavigationLink";
 import { NavigationLogOutLink } from "./NavigationLogOutLink";
 import { ToggleNavigation } from "./ToggleNavigation";
+import { NavigationWrapperLink } from "./NavigationWrapperLink";
 
 export const Navigation: FC = (): ReactElement => {
   const [isOpened, setIsOpened] = useCycle<boolean>(false, true);
@@ -34,10 +35,12 @@ export const Navigation: FC = (): ReactElement => {
             ref={navRef}
             variants={variants}
             className={"flex flex-col gap-2 justify-start align-items-center w-full"} >
-            <NavigationLink href="/auth" text={"Home"} />
-            <NavigationLink href="/" text={"Clubs"} />
-            <NavigationLink href="/" text={"Profile"} />
-            <NavigationLogOutLink />
+            <NavigationWrapperLink>
+              <NavigationLink href="/auth" text={"Home"} />
+              <NavigationLink href="/" text={"Clubs"} />
+              <NavigationLink href="/" text={"Profile"} />
+              <NavigationLogOutLink />
+            </NavigationWrapperLink>
           </motion.ul>
         </motion.div>
       </motion.nav>

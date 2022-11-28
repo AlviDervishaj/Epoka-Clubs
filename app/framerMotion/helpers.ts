@@ -5,20 +5,18 @@ import { Variants } from "framer-motion";
 export const linksVariants: Variants = {
   open: {
     y: 0,
-    pointerEvents: "auto",
     opacity: 1,
     transition: {
-      y: { stiffness: 1000, velocity: -100 },
-    },
+      y: { stiffness: 1000, velocity: -100 }
+    }
   },
   closed: {
     y: 50,
-    pointerEvents: "none",
     opacity: 0,
     transition: {
-      y: { stiffness: 1000 },
-    },
-  },
+      y: { stiffness: 1000 }
+    }
+  }
 };
 
 export const variants: Variants = {
@@ -34,18 +32,17 @@ export const sidebar: Variants = {
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at 40px 40px) `,
     transition: {
-      type: "tween",
-      ease: "easeInOut",
-      duration: 0.6,
-      stiffness: 200,
-      damping: 40,
+      type: "spring",
+      stiffness: 20,
+      damping: 2,
     },
   }),
   closed: {
     clipPath: "circle(1.3rem at 40px 40px)",
     transition: {
-      delay: 0.35,
-      stiffness: 100,
+      delay: 0.5,
+      type: "spring",
+      stiffness: 400,
       damping: 40,
     },
   },

@@ -1,7 +1,10 @@
 import { InsertOneResult, WithId, Document } from 'mongodb';
 
 export type AvailableDatabases = "Student" | "Club" | "Staff";
-
+export type RequestStatus = "Pending" | "Accepted" | "Rejected";
+export type AvailableCollections = "StudentData" | "ClubData" | "StaffData" | "RequestData";
+export type AuthErrorTypes = "auth/incorrect-password" | "auth/invalid-token" | "auth/student-not-found";
+export type ErrorTypes = AuthErrorTypes;
 export type BulkDocuments = Array<StudentData | ClubData | StaffData | RequestData>;
 
 export type FilterQuery = {
@@ -12,7 +15,7 @@ export type APIReturnType = {
   info: string,
   getUser?: WithId<Document> | null,
   insertedResult?: InsertOneResult<Document>,
-  error?: string,
+  error?: ErrorTypes,
   code: 200 | 400 | 401 | 500,
 }
 
@@ -43,6 +46,6 @@ export type RequestData = {
   dateRequested: string,
   clubId: string,
   reviewed: boolean,
-  status: "Pending" | "Accepted" | "Rejected",
+  status: RequestStatus,
 }
 

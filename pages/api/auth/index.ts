@@ -42,6 +42,7 @@ export default async function handler(
     emailVerified: false,
     password: hashedPassword,
   };
+
   // save user to mongo
   const result: InsertOneResult<Document> = await mongo.insertOneDocument(user);
 

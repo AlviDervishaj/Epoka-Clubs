@@ -1,6 +1,6 @@
 // Mongo
-import { MongoClient, Db, Collection, WithId, Document, FindCursor } from "mongodb";
-import { ClubData, StaffData, RequestData, StudentData, AvailableDatabases, BulkDocuments, FilterQuery } from "./Types";
+import { MongoClient, Db, Collection, WithId, Document } from "mongodb";
+import { ClubData, StaffData, RequestData, StudentData, AvailableDatabases, BulkDocuments, FilterQuery, AvailableCollections } from "./Types";
 
 export class MongoWrapper {
   protected client: MongoClient;
@@ -8,10 +8,10 @@ export class MongoWrapper {
   protected collection: Collection;
 
   // construstor
-  constructor(databaseName: AvailableDatabases = "Student") {
+  constructor(databaseName: AvailableDatabases = "Student", collectionName: AvailableCollections = "StudentData") {
     this.client = new MongoClient(process.env.NEXT_PUBLIC_MONGO_CONNECTION as string);
     this.database = this.getClient.db(databaseName);
-    this.collection = this.getDatabase.collection(databaseName);
+    this.collection = this.getDatabase.collection(collectionName);
   }
 
   // getters 
@@ -44,8 +44,8 @@ export class MongoWrapper {
 
 
 export class MongoActions extends MongoWrapper {
-  constructor(databaseName: AvailableDatabases = "Student") {
-    super(databaseName);
+  constructor(databaseName: AvailableDatabases = "Student", collectionName: AvailableCollections = "StudentData") {
+    super(databaseName, collectionName);
   }
 
   // methods
