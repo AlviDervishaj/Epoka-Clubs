@@ -11,6 +11,8 @@ export default function Head() {
         name="description"
         content="Manage Epoka Clubs and participate in events to earn certificates."
       />
+      {/* Manifest  */}
+      <link rel="manifest" href="/manifest.webmanifest" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
@@ -28,7 +30,7 @@ export default function Head() {
       <meta property="twitter:title" content="Epoka Clubs" />
       <meta
         property="twitter:description"
-        content="Manage Epoka Clubs and participate in evnets to earn certificates."
+        content="Manage Epoka Clubs and participate in events to earn certificates."
       />
       <meta property="twitter:image" content="http://localhost:3000/api/og" />
     </>

@@ -11,6 +11,7 @@ import { Inter } from "@next/font/google";
 // Framer Motion
 import { motion } from "framer-motion";
 
+// Inter Font
 const inter = Inter({
   subsets: ["latin"],
 });
