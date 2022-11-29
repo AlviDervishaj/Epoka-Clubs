@@ -12,7 +12,7 @@ export default function Head() {
         content="Manage Epoka Clubs and participate in events to earn certificates."
       />
       {/* Manifest  */}
-      <link rel="manifest" href="/manifest.webmanifest" />
+      <link rel="manifest" href="/manifest.json" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
