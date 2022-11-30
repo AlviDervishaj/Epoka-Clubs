@@ -1,5 +1,5 @@
 // Framer Motion
-import { AnimateSharedLayout, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Helpers
 import { linksVariants } from "../../framerMotion";
@@ -7,7 +7,7 @@ import { ReactElement } from 'react';
 
 export const NavigationWrapperLink = ({ children }: { children: Array<ReactElement> }) => {
   return (
-    <AnimateSharedLayout>
+    <>
       {children && children.map((child, index) => (
         <motion.li
           key={index}
@@ -20,6 +20,6 @@ export const NavigationWrapperLink = ({ children }: { children: Array<ReactEleme
           {child}
         </motion.li>
       ))}
-    </AnimateSharedLayout>
+    </>
   )
 }

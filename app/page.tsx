@@ -1,6 +1,6 @@
 "use client";
 // React & Next
-import { MouseEvent, TouchEvent, useState } from "react";
+import { MouseEvent, TouchEvent, useCallback, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -24,12 +24,22 @@ export default function Home() {
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const emailRegex = /([a-z]{4,}[1-9]{2}@epoka\.edu\.al)/;
+  const displayError = useCallback((error: string) => {
+    setError(error);
+    setTimeout(() => setError(''), 2200)
+    return;
+  }, [])
+
   const router: AppRouterInstance = useRouter();
+
+  // ^ -> match beginning of string;
+  // $ -> Matches end of string;
+  const emailRegex = /^([a-z]{4,}[1-9]{2}@epoka\.edu\.al)$/;
 
   const handleSignIn = async (event: TouchEvent | MouseEvent) => {
     event?.preventDefault();
-    if (!emailRegex.test(email)) return setError("Not a valid Epoka email.");
+    setError('');
+    if (!emailRegex.test(email)) return displayError("Not a valid Epoka email.");
     setIsLoading(true);
     // make request to backend with axios
     const authenticateResponse: AxiosResponse<APIReturnType> = await axios.post("/api/auth", {
@@ -42,7 +52,7 @@ export default function Home() {
 
     if (error) {
       setIsLoading(false);
-      return setError(info);
+      return displayError(info);
     }
 
     // check if student does not have an account

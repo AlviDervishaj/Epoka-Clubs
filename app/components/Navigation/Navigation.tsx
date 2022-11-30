@@ -1,3 +1,4 @@
+'use client';
 // React & Next
 import { FC, ReactElement, useRef } from "react";
 
@@ -5,7 +6,6 @@ import { FC, ReactElement, useRef } from "react";
 import { motion, useCycle } from "framer-motion";
 
 // Helpers
-import { useDimensions } from "../hooks";
 import { variants, sidebar } from "../../framerMotion"
 
 // Components
@@ -18,7 +18,6 @@ export const Navigation: FC = (): ReactElement => {
   const [isOpened, setIsOpened] = useCycle<boolean>(false, true);
 
   const navRef = useRef<HTMLUListElement>(null);
-  const { height } = useDimensions(navRef);
 
   return (
     <motion.div className="relative z-50">
@@ -29,8 +28,8 @@ export const Navigation: FC = (): ReactElement => {
         <motion.div className="navigationBackground" variants={sidebar} />
         <ToggleNavigation toggle={setIsOpened} />
         <motion.div
-          custom={height}
-          className={`${isOpened ? 'pointer-events-auto' : 'pointer-events-none'} px-4 pt-20 absolute w-full md:w-1/3 flex gap-2 flex-col items-end justify-center`}>
+          className={`${isOpened ? 'pointer-events-auto' : 'pointer-events-none'} 
+            px-4 pt-20 absolute w-full md:w-1/3 flex gap-2 flex-col items-end justify-center`}>
           <motion.ul
             ref={navRef}
             variants={variants}
