@@ -3,15 +3,15 @@
 import { useContext } from "react";
 
 // Components
-import { SessionContext } from "../components";
+import { SessionContext, useToken } from "../components";
 
 // Helpers
 import { APIReturnType } from "../../helpers";
 
 export default function Authentication() {
 
-  const user: APIReturnType = useModifyResult(useContext<APIReturnType>(SessionContext));
-  console.log({ user });
+  //const { token }: { token: string } = useToken();
+  //const user: APIReturnType = useContext<APIReturnType>(SessionContext);
   return (
     <main className={"pt-20"}>
       <h2>Auth user </h2>

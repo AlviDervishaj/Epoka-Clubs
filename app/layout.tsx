@@ -11,7 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 // Components
-import { isEmpty, Loading } from "./components";
+import { Loading, useToken } from "./components";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
 // Context
@@ -28,32 +28,37 @@ const inter = Inter({
 // Layout default export can have any name.
 export default function RootLayout({ children }: LayoutProps) {
   const [loading, setLoading] = useState(true);
-  const { data: user }: { data: APIReturnType } = useValidate();
+  const { token }: { token: string } = useToken();
+  const { data }: { data: APIReturnType } = useValidate();
   const router: AppRouterInstance = useRouter();
-  const pathName: string | null = usePathname();
 
-  const runChecks = useCallback(() => {
-    if (isEmpty(user)) {
-      if (pathName !== '/') {
-        return router.push('/');
-      }
-      setLoading(false);
-    }
-    else if (user.code !== 200) {
-      setLoading(false);
-      // remove token from localstorage
-      localStorage.removeItem('token');
-      // re-render page
+  const runChecks = useCallback(async () => {
+    console.log({ token, data });
+    // token is empty
+    if (token === '') {
       router.push('/');
+      return setLoading(false);
     }
-    else if (user.code === 200) {
-      setLoading(false);
-      router.push('/auth');
+    // token is not empty
+    else {
+      // token is not valid
+      if (data.error && data.code !== 200) {
+        localStorage.removeItem('token');
+        router.push('/');
+        return setLoading(false);
+      }
+      // token is valid
+      else if (data.code === 200) {
+        // token is valid
+        router.push('/auth');
+        return setLoading(false);
+      }
     }
-  }, [router, pathName, user]);
+  }, [router, token, data]);
 
   useEffect(() => {
     runChecks();
+    return () => setLoading(true);
   }, [runChecks])
 
   return (
@@ -61,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps) {
       <head />
       <body className={`w-full h-full ${inter.className} bg-home-light`}>
         {loading ? <Loading /> : (
-          <SessionContext.Provider value={user}>
+          <SessionContext.Provider value={data}>
             {children}
           </SessionContext.Provider>
         )}

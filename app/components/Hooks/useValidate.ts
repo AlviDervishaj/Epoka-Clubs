@@ -7,7 +7,7 @@ import { useToken } from "./useToken";
 
 export const useValidate = () => {
   const { token }: { token: string } = useToken();
-  const [data, setData] = useState<APIReturnType>({} as APIReturnType);
+  const [data, setData] = useState<APIReturnType>({ info: 'Token is not valid.', error: 'auth/invalid-token', code: 400 } as APIReturnType);
 
   useEffect(() => {
     const fetchUser = async (): Promise<void> => {

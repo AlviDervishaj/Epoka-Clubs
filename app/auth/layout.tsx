@@ -1,6 +1,6 @@
 'use client';
 // Helpers
-import { APIReturnType, LayoutProps } from "../../helpers";
+import { LayoutProps } from "../../helpers";
 
 // Components
 import { Navigation, Footer } from "../components";
