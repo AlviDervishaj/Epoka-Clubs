@@ -1,8 +1,13 @@
 export default function Head() {
   return (
     <>
-      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport" />
+      <meta name="theme-color" content="black" />
       <meta name="description" content="Epoka Clubs Manager" />
+      <meta
+        name="keywords"
+        content="epoka, clubs, manage epoka clubs"
+      />
       <link rel="icon" href="/favicon.ico" />
       {/* Primary Tags */}
       <title>Epoka Clubs</title>
