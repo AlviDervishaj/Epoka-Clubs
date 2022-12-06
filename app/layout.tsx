@@ -7,14 +7,13 @@ import { LayoutProps } from "../helpers";
 
 // React & Next
 import { Inter } from "@next/font/google";
-import { useEffect, useState } from "react";
 
 // Next Auth
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 
 // Components
-import { Loading } from "./components";
 import { AnimatePresence } from "framer-motion";
+import { ReactNode } from "react";
 
 // Inter Font
 const inter = Inter({
@@ -22,7 +21,9 @@ const inter = Inter({
 });
 
 // Layout default export can have any name.
-export default function RootLayout({ children }: LayoutProps) {
+export default function RootLayout({
+  children,
+}: LayoutProps): ReactNode | Promise<ReactNode> {
   return (
     <html lang="en">
       <head />
