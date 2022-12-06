@@ -2,13 +2,9 @@
 import { useState, useEffect } from "react";
 // Axios 
 import axios, { AxiosResponse } from "axios";
-import { APIReturnType } from "../../../helpers";
-import { useToken } from "./useToken";
-
-export const useValidate = () => {
-  const { token }: { token: string } = useToken();
-  const [data, setData] = useState<APIReturnType>({ info: 'Token is not valid.', error: 'auth/invalid-token', code: 400 } as APIReturnType);
-
+import { APIReturnType, ValidateReturnType } from "../../../helpers";
+export const useValidate = ({ token }: { token: string }): ValidateReturnType => {
+  const [data, setData] = useState<APIReturnType>({ info: 'Token is not valid.', code: 'auth/invalid-token' });
   useEffect(() => {
     const fetchUser = async (): Promise<void> => {
       if (token === '') return;
@@ -24,5 +20,5 @@ export const useValidate = () => {
     fetchUser();
   }, [token]);
 
-  return { data };
+  return { data, token };
 }

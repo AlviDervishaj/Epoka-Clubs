@@ -1,0 +1,87 @@
+
+    event?.preventDefault();
+    setError('');
+    if (!emailRegex.test(email)) return displayError("Not a valid Epoka email.");
+    setIsLoading(true);
+    // make request to backend with axios
+    const authenticateResponse: AxiosResponse<APIReturnType> = await axios.post("/api/auth", {
+      email,
+      password,
+    });
+
+    const { insertedResult, getUser, info, error } = authenticateResponse.data;
+
+
+    if (error) {
+      setIsLoading(false);
+      return displayError(info);
+    }
+
+    // check if student does not have an account
+    if (insertedResult) {
+      if (insertedResult.acknowledged && insertedResult.insertedId) {
+        setIsLoading(false);
+        // save to localstorage
+        localStorage.setItem("token", `${insertedResult.insertedId}`);
+        return router.push("/auth");
+      }
+    }
+    // student already has an account before
+    else if (getUser) {
+      setIsLoading(false);
+      // save to localstorage
+      localStorage.setItem("token", `${getUser._id}`);
+      return router.push("/auth");
+    }
+
+
+
+
+
+
+
+
+
+
+
+{
+  user: {
+    id: '110471365513092382524',
+    name: 'Alvi Dervishaj',
+    email: 'adervishaj21@epoka.edu.al',
+    image: 'https://lh3.googleusercontent.com/a/AEdFTp7PdE6J57XLKNsHynBDPsD-Y8kKtjTt56nZHU7M=s96-c'
+  },
+  account: {
+    provider: 'google',
+    type: 'oauth',
+    providerAccountId: '110471365513092382524',
+    access_token: 'ya29.a0AeTM1ie-N9yeK2wSNet-4qWwPtrGdJqi-dsYOTm2AEQEVaypWkE51BhgrdpjN8wvUVtwstT716lpCGsQpnzlxQ9Fa5GfkspgxZJ7YFw4CfPNsK6O1je_ufJhza3lth_BXiFAWTnsSK9yGOKz2pDamfsGJPbbaCgYKASUSARISFQHWtWOmnX-7XdkTThN93NWr1Eafvw0163',
+    expires_at: 1670343474,
+    scope: 'https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile',
+    token_type: 'Bearer',
+    id_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjE4MzkyM2M4Y2ZlYzEwZjkyY2IwMTNkMDZlMWU3Y2RkNzg3NGFlYTUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NjI1ODA5MTcxODctdmJsbGxsb2gzaGtxN2UyNWZwNHFzZm91MDAybDYxZDMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2NjI1ODA5MTcxODctdmJsbGxsb2gzaGtxN2UyNWZwNHFzZm91MDAybDYxZDMuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTA0NzEzNjU1MTMwOTIzODI1MjQiLCJoZCI6ImVwb2thLmVkdS5hbCIsImVtYWlsIjoiYWRlcnZpc2hhajIxQGVwb2thLmVkdS5hbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiWUgxeXZVQnl6WmJsZC16WmpHdDhYZyIsIm5hbWUiOiJBbHZpIERlcnZpc2hhaiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BRWRGVHA3UGRFNko1N1hMS05zSHluQkRQc0QtWThrS3RqVHQ1Nm5aSFU3TT1zOTYtYyIsImdpdmVuX25hbWUiOiJBbHZpIiwiZmFtaWx5X25hbWUiOiJEZXJ2aXNoYWoiLCJsb2NhbGUiOiJlbiIsImlhdCI6MTY3MDMzOTg3NSwiZXhwIjoxNjcwMzQzNDc1fQ.kcWB1NxgwE7Y2gDG6tFeHS8nl-TzNxHmV8uwd74dBVHuqECpXMJeDhCItW78Ov2f_6gz8N6vYfy9MKEviRB5ylMluGEGIssrlzN69vH1D9Bj8wRmg3WRtWa02x5WWcG-IBfHuN1tXv1Vmu5hRiuzPvQ_PKkCxq84WVkA-s93u20QjDHgwD3DLJ2l3irYDTpEd3HTKv_-VolQspW07nJf88O7ZUfLDL27NSNgBC7jbv2yJJUTs9DuOyB9v58yf7ootnSa1wQ1kQKIp1mnINYR_eaYl2MBF1ffsmrk7xzqF0QLwhmGSa5d7vWOR4S5A1qZk87MrqGOnXurDb4OeqnBhg'
+  },
+  profile: {
+    iss: 'https://accounts.google.com',
+    azp: '662580917187-vblllloh3hkq7e25fp4qsfou002l61d3.apps.googleusercontent.com',
+    aud: '662580917187-vblllloh3hkq7e25fp4qsfou002l61d3.apps.googleusercontent.com',
+    sub: '110471365513092382524',
+    hd: 'epoka.edu.al',
+    email: 'adervishaj21@epoka.edu.al',
+    email_verified: true,
+    at_hash: 'YH1yvUByzZbld-zZjGt8Xg',
+    name: 'Alvi Dervishaj',
+    picture: 'https://lh3.googleusercontent.com/a/AEdFTp7PdE6J57XLKNsHynBDPsD-Y8kKtjTt56nZHU7M=s96-c',
+    given_name: 'Alvi',
+    family_name: 'Dervishaj',
+    locale: 'en',
+    iat: 1670339875,
+    exp: 1670343475
+  },
+  email: undefined,
+  credentials: undefined
+}
+
+
+
+
