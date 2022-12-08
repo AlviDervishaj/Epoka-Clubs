@@ -1,4 +1,4 @@
-import { MongoClient, MongoClientOptions, MongoOptions } from "mongodb";
+import { MongoClient, MongoClientOptions } from "mongodb";
 
 if (!process.env.NEXT_PUBLIC_MONGO_CONNECTION) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');

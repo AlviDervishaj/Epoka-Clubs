@@ -21,6 +21,9 @@ export default function OgImage() {
       <div style={styling}>
         Epoka Clubs
       </div>
-    ),
+    ), {
+    width: 1200,
+    height: 630,
+  },
   );
 }

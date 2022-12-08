@@ -6,7 +6,7 @@ import { FC, ReactElement, useRef } from "react";
 import { motion, useCycle } from "framer-motion";
 
 // Helpers
-import { variants, sidebar } from "../../framerMotion"
+import { variants, sidebar } from "@framer";
 
 // Components
 import { NavigationLink } from "./NavigationLink";

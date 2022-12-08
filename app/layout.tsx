@@ -3,7 +3,7 @@
 import "./styles/globals.css";
 
 // Helpers
-import { LayoutProps } from "../helpers";
+import { LayoutProps } from "@types";
 
 // React & Next
 import { Inter } from "@next/font/google";

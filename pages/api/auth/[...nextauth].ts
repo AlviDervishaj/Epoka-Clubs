@@ -4,7 +4,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 // Helpers
-import { MongoClientConnection } from "../../../helpers";
+import { MongoClientConnection } from "@helpers";
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers

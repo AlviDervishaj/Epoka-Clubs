@@ -3,8 +3,8 @@ import { FC } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-// Helpers
-import { NavigationLinkHelpers } from "./NavigationHelpers";
+// Types  
+import { NavigationLinkHelpers } from "@types";
 
 export const NavigationLink: FC<NavigationLinkHelpers> = ({ text, href }) => {
   const path = usePathname();
