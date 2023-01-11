@@ -3,10 +3,12 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["app/components/index.ts"],
+      "@styles": ["app/styles/globals.css"],
       "@helpers": ["global/Helpers/index.ts"],
       "@utils": ["global/Utils/index.ts"],
       "@types": ["global/Types/index.ts"],
       "@framer": ["global/FramerMotion/index.ts"],
+      "@icons": ["app/components/Global/Icons/index.ts"],
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

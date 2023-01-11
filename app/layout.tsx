@@ -1,6 +1,6 @@
 "use client";
 // import global css to load Tailwind
-import "./styles/globals.css";
+import "@styles";
 
 // Helpers
 import { LayoutProps } from "@types";

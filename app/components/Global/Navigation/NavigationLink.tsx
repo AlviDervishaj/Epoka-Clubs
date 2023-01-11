@@ -6,14 +6,17 @@ import Link from "next/link";
 // Types  
 import { NavigationLinkHelpers } from "@types";
 
+// Icons
+import {RenderIcon} from "@icons";
+
 export const NavigationLink: FC<NavigationLinkHelpers> = ({ text, href }) => {
   const path = usePathname();
   return (
     <section>
-      <Link href={href} className={"navigation-link flex flex-row items-center content-center gap-3"}>
+      <Link href={href} className={`navigation-link ${path === href && 'text-blue-500'}`}>
+        <RenderIcon width={25} path={href} height={25} className={`${path === href ? 'fill-blue-500' : 'black'}`} />
         <p className="navigation-text">{text}</p>
       </Link>
-      {href === path && <div className={"w-20 px-2 h-0.5 bg-black rounded-full"} />}
     </section>
   );
 };

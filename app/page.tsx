@@ -69,11 +69,10 @@ export default function Home(): ReactNode {
               onClick={() =>
                 signIn("google", { callbackUrl: "/auth", redirect: true })
               }
-              className={
-                "w-60 md:w-80 h-12 px-4 text-lg text-white bg-blue-500 rounded-lg hover:bg-home-dark focus:outline-none focus:bg-home-dark"
-              }
+              className={"login-button"}
             >
-              <p className={"text-lg"}>Sign In With Google </p>
+              <Image src={'/static/images/google.png'} width={32} height={32} className={'!object-contain'} alt={'Google'} />
+              <p className={"text-base md:text-lg"}>Sign In With Google </p>
             </motion.button>
             <motion.span>
               {error && <p className="text-lg text-red-500">{error}</p>}

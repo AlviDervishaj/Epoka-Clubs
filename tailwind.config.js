@@ -25,6 +25,9 @@ module.exports = {
           'light': {
             'blue': '#003049',
           },
+          'dark': {
+            'blue': '#073b4c',
+          },
         },
         'footer': {
           'light': '#8ecae6',
